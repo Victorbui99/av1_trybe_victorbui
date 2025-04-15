@@ -87,9 +87,3 @@ int tentativas = 6;
 
 // Inicia o jogo
 Forca(palavra, tentativas);
-
-/* tratar de:
-    - palavra onde a mesma letra aparece varias vezes
-    - chutes repetidos
-    - mensagem ganhou / perdeu
- */
