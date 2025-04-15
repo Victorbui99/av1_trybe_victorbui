@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
-int verifica(char chute, string palavra)
+List<int> verifica(char chute, string palavra)
 {
+    List<int> posicoes = new List<int>();
     for(int i = 0; i < palavra.Length; i++){
         if (palavra[i] == chute)
         {
-            return i;
+            posicoes.Add(i);
         }
     }
-    return -1; 
+    return posicoes; 
 }
 
 void printa_palavra(HashSet<int> posicoes_adivinhadas, string palavra)
@@ -46,41 +47,46 @@ char leitor_chute()
     return chute;
 }
 
-void Forca()
-{
-    // Declara os parâmetros: palavra secreta e numero de tentativas 
-    string palavra = "austeridade";
-    int tentativas = 6;
-    
+void Forca(string palavra, int tentativas)
+{    
+    Console.WriteLine("--------------------");
+    Console.WriteLine("Bem vindo ao jogo!");
     // Inicia variáveis do código 
-    int posicao;
+    List<int> posicoes = new List<int>();
     int tentativa_atual = 0;
     HashSet<int> posicoes_adivinhadas = new HashSet<int>();
     char chute;
 
     while (tentativa_atual <= tentativas)
     {
-        Console.WriteLine();
+        Console.WriteLine("-------------------");
         Console.WriteLine("Tentativa: " + tentativa_atual);
         printa_palavra(posicoes_adivinhadas, palavra);
         chute = leitor_chute();
-        posicao = verifica(chute, palavra);
-        if(posicao == -1)
+        posicoes = verifica(chute, palavra);
+        if (posicoes.Count == 0)
         {
             Console.WriteLine("Errou!");
             tentativa_atual++;
-            /* continue; */
         }
         else
         {
             Console.WriteLine("Acertou!");
-            posicoes_adivinhadas.Add(posicao);
-            /* continue; */
+            foreach (int p in posicoes)
+            {
+                posicoes_adivinhadas.Add(p);
+            }
         }
     }
+    Console.WriteLine("Fim de jogo!");
 }
 
-Forca();
+// Declara os parâmetros: palavra secreta e numero de tentativas 
+string palavra = "austeridade";
+int tentativas = 6;
+
+// Inicia o jogo
+Forca(palavra, tentativas);
 
 /* tratar de:
     - palavra onde a mesma letra aparece varias vezes
